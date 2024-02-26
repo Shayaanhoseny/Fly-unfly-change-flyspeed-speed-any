@@ -1,0 +1,35 @@
+local Window = Library.CreateLib("TITLE", "BloodTheme")
+
+-- Create a fly/flyspeed tab
+local Tab1 = Window:NewTab("Fly")
+local Tab1Section = Tab1:NewSection("Made by humbled_fan, credits to beacon!")
+
+-- Placeholder for flying logic
+local isFlying = false
+local isWalking = false
+
+-- Add walkspeed slider
+local walkspeedSlider = Tab1Section:NewSlider("Walkspeed", "Adjust walkspeed", 16, 500, function(value)
+    if not isFlying then
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = value
+    end
+end)
+
+-- Create a button for flying/unflying
+Tab1Section:NewButton("Toggle Fly / Reset to Unfly", "Made by humbled_fan credits to beacon!", function()
+    if isFlying then
+        -- Your logic for unflying
+        isFlying = false
+    else
+        -- Your logic for flying
+        isFlying = true
+        isWalking = false -- Stop walking when flying
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = 16 -- Reset walkspeed when flying
+    end
+end)
+
+-- Create a button to credit beacon and change flyspeed
+Tab1Section:NewButton("Sub to Beacon", "Change flyspeed to 5", function()
+    local Flyspeed = 5
+    game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Flight:ChangeFlySpeed(Flyspeed)
+end)
